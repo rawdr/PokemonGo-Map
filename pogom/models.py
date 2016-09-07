@@ -276,7 +276,8 @@ class Pokemon(BaseModel):
                              ))
         # Sqlite doesn't support distinct on columns
         if args.db_type == 'mysql':
-            query = query.distinct(Pokemon.spawnpoint_id)
+#            query = query.distinct(Pokemon.spawnpoint_id)
+            query = query.group_by(Pokemon.spawnpoint_id)
         else:
             query = query.group_by(Pokemon.spawnpoint_id)
 
