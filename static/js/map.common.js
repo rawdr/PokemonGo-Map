@@ -677,11 +677,11 @@ var StoreOptions = {
     type: StoreTypes.String
   },
   'remember_select_exclude': {
-    default: [],
+    default: [10, 11, 13, 14, 16, 19, 21, 29, 30, 32, 33, 41, 43, 46, 48, 69, 96, 98],
     type: StoreTypes.JSON
   },
   'remember_select_notify': {
-    default: [],
+    default: [58,66,77,50,81,4,75,2,5,8,53,55,3,6,9,26,38,45,51,57,59,62,65,67,68,76,78,82,83,89,94,101,103,105,106,107,113,115,122,130,131,132,137,139,141,142,143,144,145,146,147,148,149,150,151],
     type: StoreTypes.JSON
   },
   'remember_select_rarity_notify': {
@@ -741,7 +741,7 @@ var StoreOptions = {
     type: StoreTypes.JSON
   },
   'pokemonIcons': {
-    default: 'highres',
+    default: 'normal',
     type: StoreTypes.String
   },
   'iconSizeModifier': {

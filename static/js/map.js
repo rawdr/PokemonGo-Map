@@ -20,8 +20,8 @@ var languageLookupThreshold = 3
 
 var searchMarkerStyles
 
-var excludedPokemon = []
-var notifiedPokemon = []
+var excludedPokemon = [10,11,13,14,16,19,21,29,30,32,33,41,43,46,48,69,96,98]
+var notifiedPokemon = [58,66,77,50,81,4,75,2,5,8,53,55,3,6,9,26,38,45,51,57,59,62,65,67,68,76,78,82,83,89,94,101,103,105,106,107,113,115,122,130,131,132,137,139,141,142,143,144,145,146,147,148,149,150,151]
 var notifiedRarity = []
 
 var map
@@ -38,205 +38,6 @@ var selectedStyle = 'light'
 
 var gymTypes = ['Uncontested', 'Mystic', 'Valor', 'Instinct']
 var audio = new Audio('static/sounds/ding.mp3')
-<<<<<<< HEAD
-var pokemonSprites = {
-  normal: {
-    columns: 12,
-    iconWidth: 30,
-    iconHeight: 30,
-    spriteWidth: 360,
-    spriteHeight: 390,
-    filename: 'static/icons-sprite.png',
-    name: 'Normal'
-  },
-  highres: {
-    columns: 7,
-    iconWidth: 65,
-    iconHeight: 65,
-    spriteWidth: 455,
-    spriteHeight: 1430,
-    filename: 'static/icons-large-sprite.png',
-    name: 'High-Res'
-  },
-  shuffle: {
-    columns: 7,
-    iconWidth: 65,
-    iconHeight: 65,
-    spriteWidth: 455,
-    spriteHeight: 1430,
-    filename: 'static/icons-shuffle-sprite.png',
-    name: 'Shuffle'
-  }
-}
-
-//
-// LocalStorage helpers
-//
-
-var StoreTypes = {
-  Boolean: {
-    parse: function (str) {
-      switch (str.toLowerCase()) {
-        case '1':
-        case 'true':
-        case 'yes':
-          return true
-        default:
-          return false
-      }
-    },
-    stringify: function (b) {
-      return b ? 'true' : 'false'
-    }
-  },
-  JSON: {
-    parse: function (str) {
-      return JSON.parse(str)
-    },
-    stringify: function (json) {
-      return JSON.stringify(json)
-    }
-  },
-  String: {
-    parse: function (str) {
-      return str
-    },
-    stringify: function (str) {
-      return str
-    }
-  },
-  Number: {
-    parse: function (str) {
-      return parseInt(str, 10)
-    },
-    stringify: function (number) {
-      return number.toString()
-    }
-  }
-}
-
-var StoreOptions = {
-  'map_style': {
-    default: 'roadmap',
-    type: StoreTypes.String
-  },
-  'remember_select_exclude': {
-    default: [16,41,19,13,10,21,48,46,69,29,32,43,14,11,30,33,96,98],
-    type: StoreTypes.JSON
-  },
-  'remember_select_notify': {
-    default: [58,66,77,50,81,4,75,2,5,8,53,55,3,6,9,26,38,45,51,57,59,62,65,67,68,76,78,82,83,89,94,101,103,105,106,107,113,115,122,130,131,132,137,139,141,142,143,144,145,146,147,148,149,150,151
-],
-    type: StoreTypes.JSON
-  },
-  'remember_select_rarity_notify': {
-    default: [],
-    type: StoreTypes.JSON
-  },
-  'showGyms': {
-    default: false,
-    type: StoreTypes.Boolean
-  },
-  'showPokemon': {
-    default: true,
-    type: StoreTypes.Boolean
-  },
-  'showPokestops': {
-    default: true,
-    type: StoreTypes.Boolean
-  },
-  'showLuredPokestopsOnly': {
-    default: 0,
-    type: StoreTypes.Number
-  },
-  'showScanned': {
-    default: false,
-    type: StoreTypes.Boolean
-  },
-  'showSpawnpoints': {
-    default: false,
-    type: StoreTypes.Boolean
-  },
-  'showRanges': {
-    default: false,
-    type: StoreTypes.Boolean
-  },
-  'playSound': {
-    default: false,
-    type: StoreTypes.Boolean
-  },
-  'geoLocate': {
-    default: false,
-    type: StoreTypes.Boolean
-  },
-  'lockMarker': {
-    default: isTouchDevice(), // default to true if touch device
-    type: StoreTypes.Boolean
-  },
-  'startAtUserLocation': {
-    default: false,
-    type: StoreTypes.Boolean
-  },
-  'followMyLocation': {
-    default: false,
-    type: StoreTypes.Boolean
-  },
-  'followMyLocationPosition': {
-    default: [],
-    type: StoreTypes.JSON
-  },
-  'pokemonIcons': {
-    default: 'normal',
-    type: StoreTypes.String
-  },
-  'iconSizeModifier': {
-    default: 0,
-    type: StoreTypes.Number
-  },
-  'searchMarkerStyle': {
-    default: 'google',
-    type: StoreTypes.String
-  },
-  'locationMarkerStyle': {
-    default: 'none',
-    type: StoreTypes.String
-  },
-  'zoomLevel': {
-    default: 16,
-    type: StoreTypes.Number
-  }
-}
-
-var Store = {
-  getOption: function (key) {
-    var option = StoreOptions[key]
-    if (!option) {
-      throw new Error('Store key was not defined ' + key)
-    }
-    return option
-  },
-  get: function (key) {
-    var option = this.getOption(key)
-    var optionType = option.type
-    var rawValue = localStorage[key]
-    if (rawValue === null || rawValue === undefined) {
-      return option.default
-    }
-    var value = optionType.parse(rawValue)
-    return value
-  },
-  set: function (key, value) {
-    var option = this.getOption(key)
-    var optionType = option.type || StoreTypes.String
-    var rawValue = optionType.stringify(value)
-    localStorage[key] = rawValue
-  },
-  reset: function (key) {
-    localStorage.removeItem(key)
-  }
-}
-=======
->>>>>>> upstream/develop
 
 //
 // Functions
@@ -488,7 +289,7 @@ function initSidebar () {
   $.each(pokemonSprites, function (key, value) {
     icons.append($('<option></option>').attr('value', key).text(value.name))
   })
-  icons.val((pokemonSprites[Store.get('pokemonIcons')]) ? Store.get('pokemonIcons') : 'highres')
+  icons.val((pokemonSprites[Store.get('pokemonIcons')]) ? Store.get('pokemonIcons') : 'normal')
   $('#pokemon-icon-size').val(Store.get('iconSizeModifier'))
 }
 
