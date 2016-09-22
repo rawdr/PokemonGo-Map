@@ -214,7 +214,6 @@ class Pokemon(BaseModel):
                  .where((Pokemon.pokemon_id == pokemon_id) &
                         (Pokemon.disappear_time > timediff)
                         )
-                 .order_by(Pokemon.disappear_time.asc())
                  .group_by(Pokemon.latitude, Pokemon.longitude, Pokemon.pokemon_id, Pokemon.spawnpoint_id)
                  .dicts()
                  )
@@ -910,7 +909,13 @@ def clean_db_loop(args):
 def bulk_upsert(cls, data):
     num_rows = len(data.values())
     i = 0
-    step = 120
+
+    if args.db_type == 'mysql':
+        step = 120
+    else:
+        # SQLite has a default max number of parameters of 999,
+        # so we need to limit how many rows we insert for it.
+        step = 50
 
     while i < num_rows:
         log.debug('Inserting items %d to %d', i, min(i + step, num_rows))
